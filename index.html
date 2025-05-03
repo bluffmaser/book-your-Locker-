@@ -19,7 +19,6 @@
       height: 100%;
       font-family: 'Pacifico', cursive;
       overflow: hidden;
-      touch-action: none;
       background: #fdfdfd;
     }
 
@@ -50,7 +49,6 @@
       font-size: 4em;
       color: #000;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
-      text-transform: uppercase;
       margin: 0;
     }
 
@@ -68,35 +66,36 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 999;
       width: 90%;
       max-width: 500px;
-      padding: 10px;
+      padding: 12px;
       background: white;
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      animation: fadeSlideIn 1s ease-out;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      animation: dropIn 0.8s ease-out;
     }
 
     gmpx-place-picker {
       width: 100%;
       font-size: 1.1em;
-      transition: all 0.3s ease-in-out;
+      border-radius: 10px;
     }
 
     gmpx-place-picker:focus-within {
-      box-shadow: 0 0 10px #00000044;
+      outline: none;
+      box-shadow: 0 0 10px #00000033;
       transform: scale(1.02);
     }
 
-    @keyframes fadeSlideIn {
+    @keyframes dropIn {
       0% {
+        transform: translateX(-50%) translateY(-30px);
         opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
       }
       100% {
-        opacity: 1;
         transform: translateX(-50%) translateY(0);
+        opacity: 1;
       }
     }
 
@@ -116,7 +115,6 @@
     select, button {
       padding: 10px;
       margin-top: 10px;
-      display: block;
       width: 100%;
       font-size: 1em;
     }
@@ -140,7 +138,6 @@
       transform: scale(1.03);
     }
 
-    /* Confirmation Section */
     #confirmation-section {
       background: #2ecc71;
       color: white;
@@ -179,6 +176,7 @@
   <!-- Booking Section -->
   <section id="booking-section">
     <gmp-map center="40.749933,-73.98633" zoom="13" map-id="DEMO_MAP_ID">
+      <!-- Top Centered Search Box -->
       <div class="place-picker-container">
         <gmpx-place-picker placeholder="Enter Pickup or Drop Location"></gmpx-place-picker>
       </div>
