@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Online Locker Booking</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <title>Online Locker Booking</title>
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
@@ -99,10 +99,26 @@
       margin: 10px;
       position: absolute;
       z-index: 5;
+      top: 20px;
+      left: 20px;
+      width: 300px;
     }
 
     gmpx-place-picker {
-      width: 300px;
+      width: 100%;
+    }
+
+    /* Media Query for Mobile Screens */
+    @media (max-width: 768px) {
+      .place-picker-container {
+        left: 10px;
+        top: 10px;
+        width: 90vw; /* Make search bar width responsive */
+      }
+
+      gmpx-place-picker {
+        width: 100%; /* Ensure search bar takes full width */
+      }
     }
 
     #confirmation-section {
@@ -131,75 +147,10 @@
       font-weight: bold;
       letter-spacing: 4px;
     }
-
-    /* Responsive Design Enhancements */
-    @media (max-width: 768px) {
-      .splash-screen h1 {
-        font-size: 2.2em;
-        padding: 0 10px;
-      }
-
-      gmp-map {
-        height: 50%;
-      }
-
-      gmpx-place-picker {
-        width: 90vw;
-      }
-
-      .place-picker-container {
-        left: 50%;
-        transform: translateX(-50%);
-        top: 10px;
-      }
-
-      .info-box {
-        padding: 15px;
-        font-size: 0.95em;
-      }
-
-      button {
-        font-size: 1em;
-        padding: 10px;
-      }
-
-      #confirmation-section h1 {
-        font-size: 2em;
-      }
-
-      #confirmation-section p,
-      #otp,
-      #timer {
-        font-size: 1em;
-      }
-
-      #otp {
-        font-size: 1.5em;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .place-picker-container {
-        top: 20px;
-        left: 20px;
-      }
-
-      gmpx-place-picker {
-        width: 300px;
-      }
-
-      .info-box {
-        font-size: 1.1em;
-      }
-
-      button {
-        font-size: 1.1em;
-      }
-    }
   </style>
 </head>
-
 <body>
+
   <!-- Splash Screen -->
   <section id="splash" class="splash-screen active">
     <h1>Online Locker Booking</h1>
@@ -224,7 +175,7 @@
         <option>4</option>
         <option>5</option>
         <option>6</option>
-        <option>More then 6 hours</option>
+        <option>More than 6 hours</option>
       </select>
       <p id="costDisplay"><strong>Cost:</strong> ₹0</p>
       <button onclick="confirmBooking()">CONFIRM BOOKING</button>
@@ -264,7 +215,7 @@
     let selectedLocation = null;
 
     function calculateCost(hours) {
-      return hours === "More then 6 hours" ? 300 : parseInt(hours) * 50;
+      return hours === "More than 6 hours" ? 300 : parseInt(hours) * 50;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -321,8 +272,8 @@
       const cost = calculateCost(hrs);
       showSection("confirmation-section");
 
-      document.getElementById("summary").innerText = `You booked for Hours : ${hrs}.`;
-      document.getElementById("amount").innerText = `Amount Want To Pay: ₹${cost}`;
+      document.getElementById("summary").innerText = `You booked for Hours: ${hrs}.`;
+      document.getElementById("amount").innerText = `Amount You Need to Pay: ₹${cost}`;
 
       const otp = Math.floor(1000 + Math.random() * 9000);
       document.getElementById("otp").textContent = otp;
@@ -333,13 +284,12 @@
       const countdown = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
         timeLeft--;
 
         if (timeLeft < 0) {
           clearInterval(countdown);
-          timerDisplay.textContent = "EXPIRED";
-          document.getElementById("otp").textContent = "----";
+          timerDisplay.textContent = "00:00";
         }
       }, 1000);
     }
